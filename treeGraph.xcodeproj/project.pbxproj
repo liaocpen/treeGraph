@@ -24,6 +24,8 @@
 		04C0178318AB6C9500E3DE76 /* treeGraphTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C0178218AB6C9500E3DE76 /* treeGraphTests.m */; };
 		04C0179218AB74CF00E3DE76 /* ObjCClassWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C0179118AB74CF00E3DE76 /* ObjCClassWrapper.m */; };
 		04C0179818ACAFD300E3DE76 /* PSBaseLeafView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C0179718ACAFD300E3DE76 /* PSBaseLeafView.m */; };
+		189C553E18ACFE3000C81F2D /* PSBaseBranchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189C553D18ACFE3000C81F2D /* PSBaseBranchView.m */; };
+		189C554118ACFEDB00C81F2D /* PSBaseTreeGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189C554018ACFEDB00C81F2D /* PSBaseTreeGraphView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +64,10 @@
 		04C0179618ACAFD200E3DE76 /* PSBaseLeafView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PSBaseLeafView.h; path = View/PSTreeGraphView/PSBaseLeafView.h; sourceTree = "<group>"; };
 		04C0179718ACAFD300E3DE76 /* PSBaseLeafView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PSBaseLeafView.m; path = View/PSTreeGraphView/PSBaseLeafView.m; sourceTree = "<group>"; };
 		04C0179918ACD25400E3DE76 /* PSTreeGraphModelNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PSTreeGraphModelNode.h; path = View/PSTreeGraphView/PSTreeGraphModelNode.h; sourceTree = "<group>"; };
+		189C553C18ACFE3000C81F2D /* PSBaseBranchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PSBaseBranchView.h; path = View/PSTreeGraphView/PSBaseBranchView.h; sourceTree = "<group>"; };
+		189C553D18ACFE3000C81F2D /* PSBaseBranchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PSBaseBranchView.m; path = View/PSTreeGraphView/PSBaseBranchView.m; sourceTree = "<group>"; };
+		189C553F18ACFEDB00C81F2D /* PSBaseTreeGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PSBaseTreeGraphView.h; path = View/PSTreeGraphView/PSBaseTreeGraphView.h; sourceTree = "<group>"; };
+		189C554018ACFEDB00C81F2D /* PSBaseTreeGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PSBaseTreeGraphView.m; path = View/PSTreeGraphView/PSBaseTreeGraphView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +201,10 @@
 				04C0179618ACAFD200E3DE76 /* PSBaseLeafView.h */,
 				04C0179718ACAFD300E3DE76 /* PSBaseLeafView.m */,
 				04C0179918ACD25400E3DE76 /* PSTreeGraphModelNode.h */,
+				189C553C18ACFE3000C81F2D /* PSBaseBranchView.h */,
+				189C553D18ACFE3000C81F2D /* PSBaseBranchView.m */,
+				189C553F18ACFEDB00C81F2D /* PSBaseTreeGraphView.h */,
+				189C554018ACFEDB00C81F2D /* PSBaseTreeGraphView.m */,
 			);
 			name = PSTreeGraphView;
 			sourceTree = "<group>";
@@ -297,9 +307,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				189C553E18ACFE3000C81F2D /* PSBaseBranchView.m in Sources */,
 				04C0176E18AB6C9500E3DE76 /* ViewController.m in Sources */,
 				04C0176518AB6C9500E3DE76 /* AppDelegate.m in Sources */,
 				04C0179218AB74CF00E3DE76 /* ObjCClassWrapper.m in Sources */,
+				189C554118ACFEDB00C81F2D /* PSBaseTreeGraphView.m in Sources */,
 				04C0176118AB6C9500E3DE76 /* main.m in Sources */,
 				04C0179818ACAFD300E3DE76 /* PSBaseLeafView.m in Sources */,
 			);
@@ -520,6 +532,7 @@
 				04C0178818AB6C9500E3DE76 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		04C0178918AB6C9500E3DE76 /* Build configuration list for PBXNativeTarget "treeGraphTests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +541,7 @@
 				04C0178B18AB6C9500E3DE76 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

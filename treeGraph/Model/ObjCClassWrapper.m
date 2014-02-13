@@ -102,7 +102,17 @@ static NSInteger CompareClassNames(id classA, id classB, void* context)
 }
 
 
-#pragma mark -
+#pragma mark - TreeGraphModelNode Protocol
+
+- (id<PSTreeGraphModelNode>)parentModeNode
+{
+    return [self superclassWrapper];
+}
+
+- (NSArray *)childModeNodes
+{
+    return [self subclasses];
+}
 
 
 
