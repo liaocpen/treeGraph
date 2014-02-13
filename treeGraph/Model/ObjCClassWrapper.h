@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "PSTreeGraphModelNode.h"
 
-@interface ObjCClassWrapper : NSObject <NSCopying, >
+@interface ObjCClassWrapper : NSObject <NSCopying, PSTreeGraphModelNode>
 
 #pragma mark - Creating Instances
 
