@@ -7,25 +7,51 @@
 //
 
 #import "PSBaseBranchView.h"
+#import "PSBaseTreeGraphView.h"
+
+@interface PSBaseBranchView ()
+
+- (UIBezierPath *) directConnectionsPath;
+- (UIBezierPath *) orthogonalConnectionsPath;
+
+@end
 
 @implementation PSBaseBranchView
 
-- (id)initWithFrame:(CGRect)frame
+- (PSBaseTreeGraphView *)enclosingTreeGraph
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
+    UIView *ancestor = [self superview];
+    while (ancestor) {
+        if ([ancestor isKindOfClass:[PSBaseTreeGraphView class]]) {
+            return (PSBaseTreeGraphView *)ancestor;
+        }
     }
-    return self;
+    return nil;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+#pragma mark - Drawing 
+
+-(UIBezierPath *)directConnectionsPath
 {
-    // Drawing code
+    CGRect bounds = [self bounds];
+    CGPoint rootPoint = CGPointZero;
+    
+    return nil;
 }
-*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end

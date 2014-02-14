@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		042EF16418ADC7CB004B85DB /* PSBaseSubtreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EF16318ADC7CB004B85DB /* PSBaseSubtreeView.m */; };
 		04C0175518AB6C9500E3DE76 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C0175418AB6C9500E3DE76 /* Foundation.framework */; };
 		04C0175718AB6C9500E3DE76 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C0175618AB6C9500E3DE76 /* CoreGraphics.framework */; };
 		04C0175918AB6C9500E3DE76 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C0175818AB6C9500E3DE76 /* UIKit.framework */; };
@@ -39,6 +40,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		042EF16218ADC7CB004B85DB /* PSBaseSubtreeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PSBaseSubtreeView.h; path = View/PSTreeGraphView/PSBaseSubtreeView.h; sourceTree = "<group>"; };
+		042EF16318ADC7CB004B85DB /* PSBaseSubtreeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PSBaseSubtreeView.m; path = View/PSTreeGraphView/PSBaseSubtreeView.m; sourceTree = "<group>"; };
+		042EF16718AE2187004B85DB /* PSBaseTreeGraphView_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PSBaseTreeGraphView_internal.h; path = View/PSTreeGraphView/PSBaseTreeGraphView_internal.h; sourceTree = "<group>"; };
 		04C0175118AB6C9500E3DE76 /* treeGraph.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = treeGraph.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04C0175418AB6C9500E3DE76 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		04C0175618AB6C9500E3DE76 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -205,6 +209,9 @@
 				189C553D18ACFE3000C81F2D /* PSBaseBranchView.m */,
 				189C553F18ACFEDB00C81F2D /* PSBaseTreeGraphView.h */,
 				189C554018ACFEDB00C81F2D /* PSBaseTreeGraphView.m */,
+				042EF16218ADC7CB004B85DB /* PSBaseSubtreeView.h */,
+				042EF16318ADC7CB004B85DB /* PSBaseSubtreeView.m */,
+				042EF16718AE2187004B85DB /* PSBaseTreeGraphView_internal.h */,
 			);
 			name = PSTreeGraphView;
 			sourceTree = "<group>";
@@ -308,6 +315,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				189C553E18ACFE3000C81F2D /* PSBaseBranchView.m in Sources */,
+				042EF16418ADC7CB004B85DB /* PSBaseSubtreeView.m in Sources */,
 				04C0176E18AB6C9500E3DE76 /* ViewController.m in Sources */,
 				04C0176518AB6C9500E3DE76 /* AppDelegate.m in Sources */,
 				04C0179218AB74CF00E3DE76 /* ObjCClassWrapper.m in Sources */,

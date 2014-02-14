@@ -1,19 +1,14 @@
 //
-//  PSBaseTreeGraphView.m
+//  PSBaseSubtreeView.m
 //  treeGraph
 //
-//  Created by Liao_Cpen on 14-2-13.
+//  Created by lanhu on 14-2-14.
 //  Copyright (c) 2014年 lanhu. All rights reserved.
 //
 
-#import "PSBaseTreeGraphView.h"
 #import "PSBaseSubtreeView.h"
-#import "PSBaseLeafView.h"
 
-#import "PSTreeGraphModelNode.h"
-
-
-@implementation PSBaseTreeGraphView
+@implementation PSBaseSubtreeView
 
 - (id)initWithFrame:(CGRect)frame
 {

@@ -17,7 +17,7 @@
 @interface PSBaseBranchView : UIView
 
 /**
- *  <#Description#>
+ *  return Link to the enclosing TreeGraph.
  */
 @property (weak, nonatomic, readonly) PSBaseTreeGraphView *enclosingTreeGraph;
 
