@@ -10,4 +10,16 @@
 
 @interface PSBaseSubtreeView : UIView
 
+
+#pragma mark - Invalidation
+
+/**
+ *  Marks all BranchView instances in this subtree as needing display.
+ */
+- (void) recursiveSetConnectorsViewsNeedDisplay;
+
+/**
+ *  Marks all SubtreeView debug borders as needing display.
+ */
+- (void) resursiveSetSubtreeBordersNeedDisplay;
 @end
