@@ -190,27 +190,158 @@
 {
     [self setBackgroundColor: [UIColor colorWithRed:0.55 green:0.76 blue:0.93 alpha:1.0]];
     
+    connectingLineColor_ = [UIColor blackColor];
+    contentMargin_ = 20.0;
+    parentChildSpacing_ = 50.0;
+    siblingSpacing_ = 10.0;
+    animatesLayout_ = YES;
+    resizesToFillEnclosingScrollView_ = YES;
+    treeGraphFlipped_ = NO;
+    treeGraphOrientation_  = PSTreeGraphOrientationStyleHorizontal;
+    connectingLineStyle_ = PSTreeGraphConnectingLineStyleOrthogonal;
+    connectingLineWidth_ = 1.0;
+    
+    //Internal
+    layoutAnimationSuppressed_ = NO;
+    showSubtreeFrames_ = NO;
+    minimumFrameSize_ = CGSizeMake(2.0 * contentMargin_, 2.0 * contentMargin_);
+    selectedModelNodes_ = [[NSMutableSet alloc] init];
+    modelNodeToSubtreeViewMapTable_ = [NSMutableDictionary dictionaryWithCapacity:10];
+    
+    if (inputView_ == nil) {
+        inputView_ = [[UIView alloc] initWithFrame:CGRectZero];
+    }
+    
+    
+    
 }
 
+#pragma mark - Resource Management
 
+-(void)dealloc
+{
+    self.delegate = nil;
+}
 
+#pragma mark - UIView
 
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self configureDefaults];
+    }
+    return self;
+}
 
+#pragma mark - NSCoding
 
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [super encodeWithCoder:aCoder];
+    [aCoder encodeBool:animatesLayout_ forKey:@"animatesLayout"];
+    [aCoder encodeFloat:contentMargin_ forKey:@"contentMargin"];
+    [aCoder encodeFloat:parentChildSpacing_ forKey:@"parentChildSpacing"];
+    [aCoder encodeFloat:siblingSpacing_ forKey:@"siblingSpacing"];
+    [aCoder encodeBool:resizesToFillEnclosingScrollView_ forKey:@"resizesToFillEnclosingScrollView"];
+    [aCoder encodeObject:connectingLineColor_ forKey:@"connectingLineColor"];
+    [aCoder encodeFloat:connectingLineWidth_ forKey:@"connectingLineWidth"];
+    [aCoder encodeInt:treeGraphOrientation_ forKey:@"treeGraphOrientation"];
+    [aCoder encodeInt:connectingLineStyle_ forKey:@"connectingLineStyle"];
+}
 
+-(id)initWithCoder:(NSCoder *)decoder
+{
+    self = [super initWithCoder:decoder];
+    if (self) {
+        [self configureDefaults];
+        if ([decoder containsValueForKey:@"animatesLayout"]) {
+            animatesLayout_ = [decoder decodeBoolForKey:@"animatesLayout"];
+        }
+        if ([decoder containsValueForKey:@"contentMargin"])
+            contentMargin_ = [decoder decodeFloatForKey:@"contentMargin"];
+        if ([decoder containsValueForKey:@"parentChildSpacing"])
+            parentChildSpacing_ = [decoder decodeFloatForKey:@"parentChildSpacing"];
+        if ([decoder containsValueForKey:@"siblingSpacing"])
+            siblingSpacing_ = [decoder decodeFloatForKey:@"siblingSpacing"];
+        if ([decoder containsValueForKey:@"resizesToFillEnclosingScrollView"])
+            resizesToFillEnclosingScrollView_ = [decoder decodeBoolForKey:@"resizesToFillEnclosingScrollView"];
+        if ([decoder containsValueForKey:@"connectingLineColor"])
+            connectingLineColor_ = [decoder decodeObjectForKey:@"connectingLineColor"];
+        if ([decoder containsValueForKey:@"connectingLineWidth"])
+            connectingLineWidth_ = [decoder decodeFloatForKey:@"connectingLineWidth"];
+        
+        if ([decoder containsValueForKey:@"treeGraphOrientation"])
+            treeGraphOrientation_ = [decoder decodeIntForKey:@"treeGraphOrientation"];
+        if ([decoder containsValueForKey:@"connectingLineStyle"])
+            connectingLineStyle_ = [decoder decodeIntForKey:@"connectingLineStyle"];
+    }
+    return self;
+}
 
+#pragma mark - Root SubtreeView Access
 
+- (PSBaseSubtreeView *) rootSubtreeView
+{
+    return [self subtreeViewForModelNode:[self modelRoot]];
+}
 
+#pragma mark - Node View Nib Cache
 
+- (UINib *)cachedNodeViewNib
+{
+    return cachedNodeViewNib_;
+}
 
+- (void)setCachedNodeViewNib:(UINib *)newNib
+{
+    if (cachedNodeViewNib_ != newNib) {
+        cachedNodeViewNib_ = newNib;
+    }
+}
 
+#pragma mark - Node View Nib Specification
 
+@synthesize nodeViewNibName = nodeViewNibName_;
 
+- (void)setNodeViewNibName:(NSString *)newName
+{
+    if (nodeViewNibName_ != newName) {
+        [self setCachedNodeViewNib:nil];
+        nodeViewNibName_ = [newName copy];
+    }
+}
 
+#pragma mark - Selection State
 
+/**
+ *  The unordered set of model nodes that are currently selected in the TreeGraph.
+ */
 
+@synthesize selectedModelNodes = selectedModelNodes_;
 
+-(void)setSelectedModelNodes:(NSSet *)newSelectedModelNodes
+{
+    NSParameterAssert(newSelectedModelNodes != nil);
+    
+    /**
+     *  Verify that each of the nodes in the new selection is in the TreeGraph's assign model tree.
+     */
+    for (id modelNode in newSelectedModelNodes) {
+        NSAssert([self modelNodeIsInAssignedTree:modelNode], @"modelNode is not in the tree");
+    }
+    
+    if (selectedModelNodes_ != newSelectedModelNodes) {
+        NSMutableSet *combineSet = [selectedModelNodes_ mutableCopy];
+        NSMutableSet *intersectionSet = [selectedModelNodes_ mutableCopy];
+        //交集
+        [intersectionSet intersectSet:newSelectedModelNodes];
 
+        NSMutableSet *differenceSet = [combineSet mutableCopy];
+        //交集的补集
+        [differenceSet minusSet:intersectionSet];
+    }
+}
 
 
 @end
