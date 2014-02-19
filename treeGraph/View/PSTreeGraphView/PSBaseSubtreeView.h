@@ -7,9 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PSTreeGraphModelNode.h"
+
+@class PSBaseTreeGraphView;
 
 @interface PSBaseSubtreeView : UIView
 
+/**
+ *  Initializes a SubtreeView with the associated modelNode. This is subtreeView's designated initializer.
+ */
+- (id)initWithModelNode:( id <PSTreeGraphModelNode> )newModelNode;
+
+/**
+ *  The View thar represents the modelNode.Is a subView of SubtreeView, and may itself have descendant views.
+ */
+@property (nonatomic, weak) IBOutlet UIView *nodeView;
 
 #pragma mark - Invalidation
 

@@ -333,15 +333,148 @@
     
     if (selectedModelNodes_ != newSelectedModelNodes) {
         NSMutableSet *combineSet = [selectedModelNodes_ mutableCopy];
+        [combineSet unionSet:newSelectedModelNodes];
+        
+        
         NSMutableSet *intersectionSet = [selectedModelNodes_ mutableCopy];
         //交集
         [intersectionSet intersectSet:newSelectedModelNodes];
 
+        
         NSMutableSet *differenceSet = [combineSet mutableCopy];
         //交集的补集
         [differenceSet minusSet:intersectionSet];
+        
+        
+        selectedModelNodes_ = [newSelectedModelNodes mutableCopy];
+        
+        for (id <PSTreeGraphModelNode> modelNode in differenceSet) {
+            PSBaseSubtreeView *subtreeView = [self subtreeViewForModelNode:modelNode];
+            UIView *nodeView = [subtreeView nodeView];
+            if (nodeView && [nodeView isKindOfClass:[PSBaseLeafView class]]) {
+                /**
+                 *  Highlighting the currently hardwired to our use of ContainerView
+                 */
+                [(PSBaseLeafView *)nodeView setShowingSelected:([newSelectedModelNodes containsObject:modelNode] ? YES : NO)];
+            }
+        }
     }
 }
+
+- (id<PSTreeGraphModelNode>)singleSelectedModelNode
+{
+    NSSet *selection = [self selectedModelNodes];
+    return ([selection count] == 1) ? [selection anyObject] : nil;
+}
+
+- (CGRect)selectionBounds
+{
+    return [self boundsOfModelNodes:[self selectedModelNodes]];
+}
+
+#pragma mark - Graph Building
+
+- (PSBaseSubtreeView *)newGraphForModelNode:(id<PSTreeGraphModelNode>)modelNode
+{
+    NSParameterAssert(modelNode);
+    
+    PSBaseSubtreeView *subtreeView = [[PSBaseSubtreeView alloc] initWithModelNode:modelNode];
+    if (subtreeView) {
+        
+        // Get nib from which to load nodeView.
+        UINib *nodeViewNib = [self cachedNodeViewNib];
+        
+        if (nodeViewNib == nil) {
+            NSString *nibName = [self nodeViewNibName];
+            NSAssert(nibName != nil, @"You must set a non-nil nodeViewNibName for TreeGraph to be able to build its view tree");
+            if (nibName != nil) {
+                nodeViewNib = [UINib nibWithNibName:[self nodeViewNibName] bundle:[NSBundle mainBundle]];
+                [self setCachedNodeViewNib:nodeViewNib];
+            }
+        }
+        
+        NSArray *nibViews = nil;
+        if (nodeViewNib != nil) {
+
+            // Instantiate the nib to create out nodeView and associate it with the subtreeView (the nib's owner).
+            nibViews = [nodeViewNib instantiateWithOwner:subtreeView options:nil];
+        }
+        
+        if (nibViews) {
+            
+            // Ask our delegate to configure the interface for the modelNode displayed in nodeView.
+            if ( [[self delegate] conformsToProtocol:@protocol(PSTreeGraphDelegate)]) {
+                [[self delegate] configureNodeView:[subtreeView nodeView] withModelNode:modelNode];
+            }
+            
+            
+        }
+    }
+    return subtreeView;
+}
+
+#pragma mark - Scrolling
+
+-(CGRect)boundsOfModelNodes:(NSSet *)modelNodes
+{
+    CGRect boundingBox = CGRectZero;
+    BOOL firstNodeFound = NO;
+    for (id <PSTreeGraphModelNode> modelNode in modelNodes) {
+        PSBaseSubtreeView *subtreeView = [self subtreeViewForModelNode:modelNode];
+        if (subtreeView && (subtreeView.hidden == NO)) {
+            UIView *nodeView = [subtreeView nodeView];
+            if (nodeView) {
+                CGRect rect = [self convertRect:[nodeView bounds] fromView:nodeView];
+                if (!firstNodeFound) {
+                    
+                    boundingBox = rect;
+                    firstNodeFound = YES;
+                } else {
+                    boundingBox = CGRectUnion(boundingBox, rect);
+                }
+            }
+        }
+    }
+    return boundingBox;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @end
