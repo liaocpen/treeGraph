@@ -97,8 +97,8 @@
 
 - (void) setContentMarigin:(CGFloat)newContentMarigin
 {
-    if (connectingLineWidth_ != newContentMarigin) {
-        connectingLineWidth_ = newContentMarigin;
+    if (contentMargin_ != newContentMarigin) {
+        contentMargin_ = newContentMarigin;
         [self setNeedsGraphLayout];
     }
 }
@@ -407,10 +407,131 @@
                 [[self delegate] configureNodeView:[subtreeView nodeView] withModelNode:modelNode];
             }
             
+            //Add the nodeView as a subView of the subtreeView
+            [subtreeView addSubview:[subtreeView nodeView]];
             
+            //Register the subtreeView in map table, so we can look it up by ites modelNode.
+            [self setSubtreeView:subtreeView forModelNode:modelNode];
+            
+            /**
+             *  Recurse to create a SubtreeView for each descendant of modelNode.
+             */
+            NSArray *childModelNodes = [modelNode childModeNodes];
+            
+            NSAssert(childModelNodes != nil, @"childModelNodes should return an empty array, not nil");
+            
+            if (childModelNodes != nil) {
+                for (id <PSTreeGraphModelNode> childModelNode in childModelNodes) {
+                    PSBaseSubtreeView *childSubtreeView = [self newGraphForModelNode:childModelNode];
+                    if (childSubtreeView != nil) {
+                        
+                        /**
+                         *  Add the child subtreeView behind the parent subtreeView's nodeView
+                         */
+                        [subtreeView insertSubview:childSubtreeView belowSubview:[subtreeView nodeView]];
+                    }
+                }
+            }
+        } else {
+            subtreeView = nil;
         }
     }
     return subtreeView;
+}
+
+- (void)buildGraph
+{
+    @autoreleasepool {
+        
+        /**
+         *  Traverse the model tree, building a SubtreeView for each model node.
+         */
+        
+        id <PSTreeGraphModelNode> root = [self modelRoot];
+        if (root) {
+            PSBaseSubtreeView *rootSubtreeView = [self newGraphForModelNode:root];
+            if (rootSubtreeView) {
+                [self addSubview:rootSubtreeView];
+            }
+        }
+    }
+}
+
+#pragma mark -Layout
+
+- (void)updateFrameSizeForContentAndClipView
+{
+    CGSize newframeSize;
+    CGSize newMinimumFrameSize = [self minimumFrameSize];
+    
+    // Additional
+    UIScrollView *enclosingScrollView = (UIScrollView *)[self superview];
+    
+    if ([self resizesToFillEnclosingScrollView] && enclosingScrollView) {
+        
+        // This TreeGraph is a child of a UIScrollView: Size it to always fill the content area(at minimum).
+        
+        CGRect contentViewBounds = [enclosingScrollView bounds];
+        newframeSize.width = MAX(newMinimumFrameSize.width, contentViewBounds.size.width);
+        newframeSize.height = MAX(newMinimumFrameSize.height, contentViewBounds.size.height);
+        
+        [enclosingScrollView setContentSize:newframeSize];
+    } else {
+        newframeSize = newMinimumFrameSize;
+    }
+    
+    self.frame = CGRectMake(self.frame.origin.x,
+                            self.frame.origin.y,
+                            newframeSize.width,
+                            newframeSize.height);
+}
+
+- (void)updateRootSubtreeViewPositionForSize:(CGSize)rootSubtreeViewSize
+{
+    // Position the rootSubtreeView within the TreeGraph.
+    PSBaseSubtreeView *rootSubtreeView = [self rootSubtreeView];
+    
+    CGPoint newOrigin;
+    if ([self resizesToFillEnclosingScrollView]) {
+        CGRect bounds = [self bounds];
+        
+        if (([self treeGraphOritentation] == PSTreeGraphOrientationStyleHorizontal) ||
+            ([self treeGraphOritentation] == PSTreeGraphOrientationStyleHorizontalFlipped)) {
+           
+            newOrigin = CGPointMake([self contentMarigin],
+                                    0.5 * (bounds.size.height - rootSubtreeViewSize.height));
+            
+        } else {
+            newOrigin = CGPointMake(0.5 * (bounds.size.width - rootSubtreeViewSize.width), [self contentMarigin]);
+        }
+    } else {
+        newOrigin = CGPointMake([self contentMarigin], [self contentMarigin]);
+    }
+    
+    rootSubtreeView.frame = CGRectMake(newOrigin.x, newOrigin.y, rootSubtreeViewSize.width, rootSubtreeViewSize.height);
+}
+
+- (void)parentClipViewDidResize:(id)object
+{
+    UIScrollView *enclosingScrollView = (UIScrollView *)[self superview];
+    if (enclosingScrollView && [enclosingScrollView isKindOfClass:[UIScrollView class]]) {
+        [self updateFrameSizeForContentAndClipView];
+        [self updateRootSubtreeViewPositionForSize:[self rootSubtreeView].frame.size];
+        [self scrollSelectedModelNodesToVisbleAnimated:NO];
+    }
+}
+
+- (void)layoutSubviews
+{
+    [self layoutGraphIfNeeded];
+}
+
+- (CGSize)layoutGraphIfNeeded
+{
+    PSBaseSubtreeView *rootSubtreeView = [self rootSubtreeView];
+    if ([self needsGraphLayout] && [self modelRoot]) {
+        
+    }
 }
 
 #pragma mark - Scrolling

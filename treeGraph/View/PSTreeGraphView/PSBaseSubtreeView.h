@@ -19,7 +19,7 @@
 - (id)initWithModelNode:( id <PSTreeGraphModelNode> )newModelNode;
 
 /**
- *  The View thar represents the modelNode.Is a subView of SubtreeView, and may itself have descendant views.
+ *  The View that represents the modelNode. Is a subView of SubtreeView, and may itself have descendant views.
  */
 @property (nonatomic, weak) IBOutlet UIView *nodeView;
 
