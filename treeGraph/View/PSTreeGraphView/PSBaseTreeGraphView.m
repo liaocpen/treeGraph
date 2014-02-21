@@ -531,6 +531,56 @@
     PSBaseSubtreeView *rootSubtreeView = [self rootSubtreeView];
     if ([self needsGraphLayout] && [self modelRoot]) {
         
+        // Do recursive graph layout, string at our rootSubtreeView.
+        CGSize rootSubtreeViewSize = [rootSubtreeView layoutGraphIfNeeded];
+        
+        // Compute self's new minimumFrameSize. Make sure it's pixel-integral
+        CGFloat margin = [self contentMarigin];
+        CGSize minimumBoundsSize = CGSizeMake(rootSubtreeViewSize.width + 2.0 * margin, rootSubtreeViewSize.height + 2.0 * margin);
+        [self setMinimumFrameSize:minimumBoundsSize];
+        
+        
+        // Set the TreeGraph's frame size
+        [self updateFrameSizeForContentAndClipView];
+        
+        // Position the treeGraph's root SubtreeView.
+        [self updateRootSubtreeViewPositionForSize:rootSubtreeViewSize];
+        
+        if (([self treeGraphOritentation] == PSTreeGraphOrientationStyleHorizontalFlipped) || ([self treeGraphOritentation] == PSTreeGraphOrientationStyleVerticalFlipped)) {
+            [rootSubtreeView flipTreeGraph];
+        }
+        return rootSubtreeViewSize;
+        
+    } else {
+        return rootSubtreeView ? [rootSubtreeView frame].size : CGSizeZero;
+    }
+}
+
+- (BOOL) needsGraphLayout
+{
+    return [[self rootSubtreeView] needsGraphLayout];
+}
+
+- (void) setNeedsGraphLayout
+{
+    [[self rootSubtreeView] recursiveSetNeedsGraphLayout];
+}
+
+- (void)collapseRoot
+{
+    [[self rootSubtreeView] setExpanded:NO];
+}
+
+- (void)expandRoot
+{
+    [[self rootSubtreeView] setExpanded:YES];
+}
+
+- (void)toggleExpansionOfSelectedModelNodes:(id)sender
+{
+    for (id <PSTreeGraphModelNode> modelNode in [self selectedModelNodes]) {
+        PSBaseSubtreeView *subtreeView = [self subtreeViewForModelNode:modelNode];
+        [subtreeView toggleExpansion:sender];
     }
 }
 
@@ -559,7 +609,19 @@
     return boundingBox;
 }
 
-
+- (void)scrollModelNodesToVisible:(NSSet *)modelNodes animated:(BOOL)animated
+{
+    CGRect targetRect = [self boundsOfModelNodes:modelNodes];
+    if (!CGRectIsEmpty(targetRect)) {
+        CGFloat padding = [self contentMarigin];
+        
+        UIScrollView *parentScroll = (UIScrollView *)[self superview];
+        if (parentScroll && [parentScroll isKindOfClass:[UIScrollView class]]) {
+            targetRect = CGRectInset(targetRect, -padding, -padding);
+            [parentScroll scrollRectToVisible:targetRect animated:animated];
+        }
+    }
+}
 
 
 

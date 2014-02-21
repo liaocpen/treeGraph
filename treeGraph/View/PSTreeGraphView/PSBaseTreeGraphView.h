@@ -155,6 +155,9 @@ typedef enum PSTreeGraphOrientationStyle : NSUInteger {
  */
 - (void) expandRoot;
 
+/**
+ *  Toggle the expansion state of the TreeGraph's selectedModelNodes,expanding those that are currently collapsed, and collapsing those that are currently expandad.
+ */
 - (IBAction) toggleExpansionOfSelectedModelNodes:(id)sender;
 
 /**
