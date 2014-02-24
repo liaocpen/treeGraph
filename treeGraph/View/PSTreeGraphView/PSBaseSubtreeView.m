@@ -239,6 +239,12 @@ static CGFloat subtreeBoederWidth()
      */
     NSArray *subviews = [self subviews];
     NSInteger count = [subviews count];
+    NSInteger index;
+    NSUInteger subtreeViewCount = 0;
+    CGFloat maxWidth = 0.0f;
+    CGFloat maxHeight = 0.0f;
+    CGPoint nextSubtreeViewOrigin = CGPointZero;
+    
     
 }
 
