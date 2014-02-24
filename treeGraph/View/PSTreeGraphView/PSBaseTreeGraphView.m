@@ -623,11 +623,57 @@
     }
 }
 
+- (void) scrollSelectedModelNodesToVisbleAnimated:(BOOL)animated
+{
+    [self scrollModelNodesToVisible:[self selectedModelNodes] animated:animated];
+}
+
+#pragma mark - Data Source 
+
+@synthesize modelRoot = modelRoot_;
+
+- (void)setModelRoot:(id<PSTreeGraphModelNode>)newModelRoot
+{
+    NSParameterAssert(newModelRoot == nil || [newModelRoot conformsToProtocol:@protocol(PSTreeGraphModelNode)]);
+    
+    if (modelRoot_ != newModelRoot) {
+        PSBaseSubtreeView *rootSubtreeView = [self rootSubtreeView];
+        [rootSubtreeView removeFromSuperview];
+        [modelNodeToSubtreeViewMapTable_ removeAllObjects];
+        
+        // Discard any previous selection
+        [self setSelectedModelNodes:[NSSet set]];
+        
+        // Switch to new modelRoot
+        modelRoot_ = newModelRoot;
+        
+        // Discard and reload content.
+        [self buildGraph];
+        [self setNeedsDisplay];
+        [[self rootSubtreeView] resursiveSetSubtreeBordersNeedDisplay];
+        [self layoutGraphIfNeeded];
+        
+        // Start with modelRoot selected.
+        if (modelRoot_) {
+            [self setSelectedModelNodes:[NSSet setWithObject:modelRoot_]];
+            [self scrollSelectedModelNodesToVisbleAnimated:NO];
+        }
+        
+    }
+}
+
+#pragma mark - Node Hit Testing 
+
+- (id<PSTreeGraphModelNode>)modelNodeAtPoint:(CGPoint)p
+{
+    PSBaseSubtreeView *rootSubTreeView = [self rootSubtreeView];
+    CGPoint subviewPoint = [self convertPoint:p fromView:rootSubTreeView];
+    id <PSTreeGraphModelNode> hitModelNode = [[self rootSubtreeView] modelNodeAtPoint:subviewPoint];
+    return hitModelNode;
+}
 
 
-
-
-
+#pragma mark - Input and Navigation
 
 
 

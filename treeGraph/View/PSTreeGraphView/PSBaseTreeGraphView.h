@@ -168,8 +168,14 @@ typedef enum PSTreeGraphOrientationStyle : NSUInteger {
 
 #pragma mark -Scrolling
 
+/**
+ *  Does a [self scrollRectToVisible:] with the bounding box of the specified model nodes.
+ */
 - (void) scrollModelNodesToVisible:(NSSet *)modelNodes animated:(BOOL)animated;
 
+/**
+ *  Does a [self scrollRectToVisible:] with the bounding box of the selected model nodes.
+ */
 - (void) scrollSelectedModelNodesToVisbleAnimated:(BOOL)animated;
 
 
