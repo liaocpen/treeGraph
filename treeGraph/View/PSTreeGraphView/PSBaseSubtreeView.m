@@ -213,10 +213,7 @@ static CGFloat subtreeBoederWidth()
     
     // Marks as having completed layout
     self.needsGraphLayout = NO;
-    
-    
     return selfTargetSize;
-    
 }
 
 -(CGSize)layoutExpandedGraph
@@ -245,13 +242,196 @@ static CGFloat subtreeBoederWidth()
     CGFloat maxHeight = 0.0f;
     CGPoint nextSubtreeViewOrigin = CGPointZero;
     
+    if ((treeOrientation == PSTreeGraphOrientationStyleHorizontal) || (treeOrientation == PSTreeGraphOrientationStyleHorizontalFlipped)) {
+        nextSubtreeViewOrigin = CGPointMake(rootNodeViewSize.width + parentChildSpacing, 0.0f);
+    } else {
+        nextSubtreeViewOrigin = CGPointMake(0.0f, rootNodeViewSize.height + parentChildSpacing);
+    }
     
+    for (index =  count - 1 ; index >= 0; index--) {
+        UIView *subview = subviews[index];
+        
+        if ([subview isKindOfClass:[PSBaseSubtreeView class]]) {
+            ++subtreeViewCount;
+            
+            // Unhide the view if needed.
+            [subview setHidden:NO];
+            
+            // Recursively lauout the subtree, and obtain the SubtreeVies's resultant size.
+            CGSize subtreeViewSize = [(PSBaseSubtreeView *)subview layoutGraphIfNeeded];
+            
+            if ((treeOrientation == PSTreeGraphOrientationStyleHorizontal) || (treeOrientation == PSTreeGraphOrientationStyleHorizontalFlipped)) {
+                
+                // Since SubtreeView is unflipped, lay out our child subtreeView going upward from our bottom edge,from last to first.
+                subview.frame = CGRectMake(nextSubtreeViewOrigin.x,
+                                           nextSubtreeViewOrigin.y,
+                                           subtreeViewSize.width,
+                                           subtreeViewSize.height);
+                
+                // Advance nextSubtreeViewOrigin for the next SubtreeView.
+                nextSubtreeViewOrigin.y += subtreeViewSize.height + siblingSpacing;
+                
+                // Keep track of the widest SubtreeView width we encounter.
+                if (maxWidth < subtreeViewSize.width) {
+                    maxWidth = subtreeViewSize.width;
+                }
+            } else {
+                subview.frame = CGRectMake(nextSubtreeViewOrigin.x,
+                                           nextSubtreeViewOrigin.y,
+                                           subtreeViewSize.width,
+                                           subtreeViewSize.height);
+                
+                nextSubtreeViewOrigin.x += subtreeViewSize.width + siblingSpacing;
+                
+                if (maxHeight < subtreeViewSize.height) {
+                    maxHeight = subtreeViewSize.height;
+                }
+            }
+        }
+    }
+    
+    // Calculate the total height of all our SubtreeViews, including the vertical spacing between them.
+    // We have N child SubtreeViews, but only （N - 1）gaps between them, so subtract 1 increment of siblingSpacing that was added by the loop above.
+    CGFloat totalHeight = 0.0f;
+    CGFloat totalWidth = 0.0f;
+    
+    if ((treeOrientation == PSTreeGraphOrientationStyleHorizontal) || (treeOrientation == PSTreeGraphOrientationStyleHorizontalFlipped)) {
+        totalHeight = nextSubtreeViewOrigin.y;
+        if (subtreeViewCount > 0) {
+            totalHeight -= siblingSpacing;
+        }
+    } else {
+        totalWidth = nextSubtreeViewOrigin.x;
+        if (subtreeViewCount > 0) {
+            totalWidth -= siblingSpacing;
+        }
+    }
+    
+    // Size self to contain our nodeView all out child SubtreeViews, and position our nodeView and connectorView.
+    if (subtreeViewCount > 0) {
+        
+        // Determine our width and height
+        if ((treeOrientation == PSTreeGraphOrientationStyleHorizontal) || (treeOrientation == PSTreeGraphOrientationStyleHorizontalFlipped)) {
+            selfTargetSize = CGSizeMake(rootNodeViewSize.width + parentChildSpacing + maxWidth, MAX(totalHeight, rootNodeViewSize.height));
+        } else {
+            selfTargetSize = CGSizeMake(MAX(totalWidth, rootNodeViewSize.width), rootNodeViewSize.height + parentChildSpacing + maxHeight);
+        }
+        
+        /**
+         *  Resize to our new width and height.
+         */
+        self.frame = CGRectMake(self.frame.origin.x,
+                                self.frame.origin.y,
+                                selfTargetSize.width,
+                                selfTargetSize.height);
+
+        CGPoint nodeViewOrign = CGPointZero;
+        if ((treeOrientation == PSTreeGraphOrientationStyleHorizontal) || (treeOrientation == PSTreeGraphOrientationStyleHorizontalFlipped)) {
+            
+            // Position our nodeView vertically centered along the left edge of our new bounds.
+            nodeViewOrign = CGPointMake(0.0f, 0.5f * (selfTargetSize.height - rootNodeViewSize.height));
+        } else {
+            // Position our nodeView horizontally centered along the top edge of our new bounds.
+            nodeViewOrign = CGPointMake(0.5f * (selfTargetSize.width - rootNodeViewSize.width), 0.0f);
+        }
+        
+        // Pixel-align its position to keep its rendering crisp.
+        CGPoint windowPoint = [self convertPoint:nodeViewOrign toView:nil];
+        windowPoint.x = round(windowPoint.x);
+        windowPoint.y = round(windowPoint.y);
+        nodeViewOrign = [self convertPoint:windowPoint fromView:nil];
+        
+        self.nodeView.frame = CGRectMake(nodeViewOrign.x,
+                                         nodeViewOrign.y,
+                                         self.nodeView.frame.size.width,
+                                         self.nodeView.frame.size.height);
+        
+        
+        // Position, show our connectorView and button.
+        
+        if ((treeOrientation == PSTreeGraphOrientationStyleHorizontal) || (treeOrientation == PSTreeGraphOrientationStyleHorizontalFlipped)) {
+            connectorsView_.frame = CGRectMake(
+                                               rootNodeViewSize.width,
+                                               0.0f, parentChildSpacing, selfTargetSize.height);
+        } else {
+            connectorsView_.frame = CGRectMake(0.0f,
+                                               rootNodeViewSize.height,
+                                               selfTargetSize.width, parentChildSpacing);
+        }
+        
+        /**
+         *  NOTE: Enable this line if a collapse animation is added
+         */
+        [connectorsView_ setHidden:NO];
+    } else {
+        /**
+         *  No SubtreeViews; this is a leaf node. 
+         *  Size self to exactly wrap nodeView, hide connectorsView, and hide the button.
+         */
+        
+        selfTargetSize = rootNodeViewSize;
+        self.frame = CGRectMake(self.frame.origin.x,
+                                self.frame.origin.y,
+                                selfTargetSize.width,
+                                selfTargetSize.height);
+        self.nodeView.frame = CGRectMake(0.0f,
+                                         0.0f,
+                                         self.nodeView.frame.size.width,
+                                         self.nodeView.frame.size.height);
+        [connectorsView_ setHidden:YES];
+    }
+    
+    // Return our new size.
+    return selfTargetSize;
 }
 
+- (CGSize)layoutCollapsedGraph
+{
+    /**
+     *  Thsi node is collapsed. Everything will be collapsed behind the leafNode
+     */
+    CGSize selfTargetSize = [self sizeNodeViewToFitContent];
+    
+    self.frame = CGRectMake(self.frame.origin.x,
+                            self.frame.origin.y,
+                            selfTargetSize.width,
+                            selfTargetSize.height);
+    
+    for (UIView *subview in [self subviews]) {
+        if ([subview isKindOfClass:[PSBaseSubtreeView class]]) {
+            
+            [(PSBaseBranchView *)subview layoutIfNeeded];
+            subview.frame = CGRectMake(0.0f,
+                                       0.0f,
+                                       subview.frame.size.width,
+                                       subview.frame.size.height);
+            [subview setHidden:YES];
+        } else if (subview == connectorsView_) {
+            PSTreeGraphOrientationStyle treeOrientation = [[self enclosingTreeGraph] treeGraphOritentation];
+            if ((treeOrientation == PSTreeGraphOrientationStyleHorizontal) || (treeOrientation == PSTreeGraphOrientationStyleHorizontalFlipped)) {
+                connectorsView_.frame = CGRectMake(0.0f,
+                                                   0.5f * selfTargetSize.height, 0.0f,
+                                                   0.0f);
+            } else {
+                connectorsView_.frame = CGRectMake(0.5f * selfTargetSize.width,0.0f, 0.0f, 0.f);
+            }
+            
+            [subview setHidden:YES];
+        } else if (subview == nodeView_) {
+           
+            subview.frame = CGRectMake(0.0f, 0.0f, selfTargetSize.width, selfTargetSize.height);
+        }
+    }
+    
+    return selfTargetSize;
+}
 
+#pragma mark - Drawing
 
-
-
+- (void) updateSubtreeBorder
+{
+    
+}
 
 
 
