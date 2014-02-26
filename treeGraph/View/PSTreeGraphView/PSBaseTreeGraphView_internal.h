@@ -13,7 +13,7 @@
 @class PSBaseSubtreeView;
 
 
-@interface PSBaseTreeGraphView ()
+@interface PSBaseTreeGraphView (Internal)
 
 #pragma mark - Model Node & SubtreeView Relationship 
 

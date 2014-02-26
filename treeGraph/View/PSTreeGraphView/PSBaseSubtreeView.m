@@ -133,8 +133,8 @@ static CGFloat subtreeBoederWidth()
 {
     UIView *ancestor = [self superview];
     while (ancestor) {
-        if ([ancestor isKindOfClass:[PSBaseBranchView class]]) {
-            return (PSBaseBranchView *)ancestor;
+        if ([ancestor isKindOfClass:[PSBaseTreeGraphView class]]) {
+            return (PSBaseTreeGraphView *)ancestor;
         }
         ancestor = [ancestor superview];
     }
@@ -430,27 +430,159 @@ static CGFloat subtreeBoederWidth()
 
 - (void) updateSubtreeBorder
 {
+    CALayer *layer = [self layer];
     
+    PSBaseTreeGraphView *treeGraph = [self enclosingTreeGraph];
+    
+    if ([treeGraph showSubtreeFrames]) {
+        [layer setBorderWidth:subtreeBoederWidth()];
+        [layer setBorderColor:[subtreeBorderColor() CGColor]];
+    } else {
+        [layer setBorderWidth:0.0];
+    }
+}
+
+#pragma mark - Invalidation
+
+- (void)recursiveSetConnectorsViewsNeedDisplay
+{
+    // Mark this SubtreeView's  connectorsView as needing display.
+    [connectorsView_ setNeedsDisplay];
+    
+    // Recurse for descendant SubtreeViews
+    NSArray *subviews = [self subviews];
+    for (UIView *subview in subviews) {
+        if ([subview isKindOfClass:[PSBaseSubtreeView class]]) {
+            [(PSBaseSubtreeView *)subview recursiveSetConnectorsViewsNeedDisplay];
+        }
+    }
+}
+
+- (void)resursiveSetSubtreeBordersNeedDisplay
+{
+    [self updateSubtreeBorder];
+    
+    // Recure for descendant SubtreeViews
+    NSArray *subviews = [self subviews];
+    for (UIView *subview in subviews) {
+        if ([subview isKindOfClass:[PSBaseSubtreeView class]]) {
+            [(PSBaseSubtreeView *)subview updateSubtreeBorder];
+        }
+    }
+}
+
+#pragma mark - Selection State
+
+- (BOOL)nodeIsSelected
+{
+    return [[[self enclosingTreeGraph] selectedModelNodes] containsObject:[self modelNode]];
+}
+
+#pragma mark - Node Hit-Testing
+
+- (id<PSTreeGraphModelNode>)modelNodeAtPoint:(CGPoint)p
+{
+    /**
+     *  Check for intersection with our subviews, enumerating them in reverse order to get front-to-back ordering.
+     */
+    
+    NSArray *subviews = [self subviews];
+    NSInteger count = [subviews count];
+    NSInteger index;
+    
+    for (index = count - 1; index >= 0; index--) {
+        UIView *subview = subviews[index];
+        CGPoint subviewPoint = [subview convertPoint:p fromView:self];
+        
+        if ([subview pointInside:subviewPoint withEvent:nil]) {
+            if (subview == [self nodeView]) {
+                return [self modelNode];
+            } else if ([subview isKindOfClass:[PSBaseSubtreeView class]]) {
+                [(PSBaseSubtreeView *)subview modelNodeAtPoint:subviewPoint];
+            } else {
+                // Ignore subview. It's probably a BranchView
+            }
+        }
+    }
+    // Don not find a hit.
+    return nil;
+}
+
+- (id<PSTreeGraphModelNode>)modelNodeClosestoY:(CGFloat)y
+{
+    // Do a simple linear search of our subviews, ignoring non-SubtreeViews.
+    NSArray *subviews = [self subviews];
+    PSBaseSubtreeView *subtreeViewWithClosestNodeView = nil;
+    CGFloat closestNodeViewDistance = MAXFLOAT;
+    
+    for (UIView *subview in subviews) {
+        if ([subview isKindOfClass:[PSBaseSubtreeView class]]) {
+            UIView *childNodeView = [(PSBaseSubtreeView *)subview nodeView];
+            if (childNodeView) {
+                CGRect rect = [self convertRect:[childNodeView bounds] fromView:childNodeView];
+                CGFloat nodeViewDistance = fabs(y - CGRectGetMidY(rect));
+                if (nodeViewDistance < closestNodeViewDistance) {
+                    closestNodeViewDistance = nodeViewDistance;
+                    subtreeViewWithClosestNodeView = (PSBaseSubtreeView *)subview;
+                }
+            }
+        }
+    }
+    return [subtreeViewWithClosestNodeView modelNode];
+}
+
+-(id<PSTreeGraphModelNode>)modelNodeClosestoX:(CGFloat)x
+{
+    NSArray *subviews = [self subviews];
+    PSBaseSubtreeView *subtreeViewWithClosestNodeView = nil;
+    CGFloat closestNodeViewDistance = MAXFLOAT;
+    
+    for (UIView *subview in subviews) {
+        if ([subview isKindOfClass:[PSBaseSubtreeView class]]) {
+            UIView *childNodeView = [(PSBaseSubtreeView *)subview nodeView];
+            if (childNodeView) {
+                CGRect rect = [self convertRect:[childNodeView bounds] fromView:childNodeView];
+                CGFloat nodeViewDistance = fabs(x - CGRectGetMidX(rect));
+                if (nodeViewDistance < closestNodeViewDistance) {
+                    closestNodeViewDistance = nodeViewDistance;
+                    subtreeViewWithClosestNodeView = (PSBaseSubtreeView *)subview;
+                }
+            }
+        }
+    }
+    
+    return [subtreeViewWithClosestNodeView modelNode];
+}
+
+#pragma mark - Debugging
+
+-(NSString *)description
+{
+    return [NSString stringWithFormat:@"SubtreeView<%@>", [modelNode_ description]];
+}
+
+- (NSString *) nodeSummary
+{
+    return [NSString stringWithFormat:@"f=%@ %@", NSStringFromCGRect([nodeView_ frame]), [modelNode_ description]];
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- (NSString *) treeSummaryWithDepth:(NSInteger)depth
+{
+    NSEnumerator *subviewsEnumerator = [[self subviews] objectEnumerator];
+    UIView *subview;
+    NSMutableString *description = [NSMutableString string];
+    NSInteger i;
+    for (i = 0; i < depth; i++) {
+        [description appendString:@"  "];
+    }
+    [description appendFormat:@"%@\n", [self nodeSummary]];
+    while (subview = [subviewsEnumerator nextObject]) {
+        if ([subview isKindOfClass:[PSBaseSubtreeView class]]) {
+            [description appendString:[(PSBaseSubtreeView *)subview treeSummaryWithDepth:(depth + 1)]];
+        }
+    }
+    return description;
+}
 
 @end

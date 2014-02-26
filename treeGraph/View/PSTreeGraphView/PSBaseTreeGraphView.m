@@ -676,33 +676,76 @@
 #pragma mark - Input and Navigation
 
 
+@end
+
+#pragma mark -
+@implementation PSBaseTreeGraphView (Internal)
 
 
+#pragma mark - ModelNode -> SubtreeView Relationship Management
 
+- (PSBaseSubtreeView *)subtreeViewForModelNode:(id)modelNode
+{
+    return modelNodeToSubtreeViewMapTable_[modelNode];
+}
 
+- (void)setSubtreeView:(PSBaseSubtreeView *)SubtreeView forModelNode:(id)modelNode
+{
+    modelNodeToSubtreeViewMapTable_[modelNode] = SubtreeView;
+}
 
+#pragma mark - Model Tree Navigation
 
+- (BOOL)modelNode:(id<PSTreeGraphModelNode>)modelNode isDescendantOf:(id<PSTreeGraphModelNode>)possibleAncestor
+{
+    NSParameterAssert(modelNode != nil);
+    NSParameterAssert(possibleAncestor != nil);
+    
+    id <PSTreeGraphModelNode> node = [modelNode parentModeNode];
+    while (node != nil) {
+        if (node == possibleAncestor) {
+            return YES;
+        }
+        node = [node parentModeNode];
+    }
+    return NO;
+}
 
+- (BOOL)modelNodeIsInAssignedTree:(id<PSTreeGraphModelNode>)modelNode
+{
+    NSParameterAssert(modelNode != nil);
+    
+    id <PSTreeGraphModelNode> root = [self modelRoot];
+    return (modelNode == root || [self modelNode:modelNode isDescendantOf:root] ? YES : NO);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- (id<PSTreeGraphModelNode>)siblingOfModelNode:(id<PSTreeGraphModelNode>)modelNode atRelativeIndex:(NSInteger)relativeIndex
+{
+    NSParameterAssert(modelNode != nil);
+    NSAssert([self modelNodeIsInAssignedTree:modelNode], @"modelNode is not in the tree");
+    
+    if (modelNode == [self modelRoot]) {
+        // modelNode is modelRoot. Disallow traversal to its siblings .
+        return nil;
+    } else {
+        // modelNode is a descendant of modelRoot
+        id <PSTreeGraphModelNode> parent = [modelNode parentModeNode];
+        NSArray *siblings = [parent childModeNodes];
+        
+        NSAssert(siblings != nil, @"childModelNodes should return an empty array ,not nil");
+        
+        if (siblings != nil) {
+            NSInteger index = [siblings indexOfObject:modelNode];
+            if (index != NSNotFound) {
+                index += relativeIndex;
+                if (index >= 0 && index < [siblings count]) {
+                    return siblings[index];
+                }
+            }
+        }
+        return nil;
+    }
+}
 
 
 
