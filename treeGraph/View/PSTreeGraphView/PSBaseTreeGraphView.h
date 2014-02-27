@@ -34,7 +34,7 @@ typedef enum PSTreeGraphOrientationStyle : NSUInteger {
 @protocol PSTreeGraphDelegate;
 
 
-@interface PSBaseTreeGraphView : UIView <UIKeyInput>
+@interface PSBaseTreeGraphView : UIView
 
 #pragma mark - Delegate
 
