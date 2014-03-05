@@ -35,7 +35,7 @@
     if (![rootClassName_ isEqualToString:newRootClassName]) {
         rootClassName_ = [newRootClassName copy];
         
-        treeGraphView_.connectingLineStyle = PSTreeGraphConnectingLineStyleOrthogonal;
+        treeGraphView_.connectingLineStyle = PSTreeGraphConnectingLineStyleDirect;
         treeGraphView_.treeGraphOritentation = PSTreeGraphOrientationStyleHorizontal;
         
         [treeGraphView_ setModelRoot:[ObjCClassWrapper wrapperForNamed:rootClassName_]];
