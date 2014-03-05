@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PSTreeGraphDelegate.h"
 
-@interface ViewController : UIViewController
+@class PSBaseTreeGraphView;
+
+@interface ViewController : UIViewController <PSTreeGraphDelegate>
+
+@property (nonatomic, weak) IBOutlet PSBaseTreeGraphView *treeGraphView;
+
+// the name of the root class that TreeGraph is currently showing.
+@property (nonatomic, copy) NSString *rootClassName;
 
 @end

@@ -7,26 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		042EF16418ADC7CB004B85DB /* PSBaseSubtreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EF16318ADC7CB004B85DB /* PSBaseSubtreeView.m */; };
 		04C0175518AB6C9500E3DE76 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C0175418AB6C9500E3DE76 /* Foundation.framework */; };
 		04C0175718AB6C9500E3DE76 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C0175618AB6C9500E3DE76 /* CoreGraphics.framework */; };
 		04C0175918AB6C9500E3DE76 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C0175818AB6C9500E3DE76 /* UIKit.framework */; };
 		04C0175F18AB6C9500E3DE76 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04C0175D18AB6C9500E3DE76 /* InfoPlist.strings */; };
-		04C0176118AB6C9500E3DE76 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C0176018AB6C9500E3DE76 /* main.m */; };
-		04C0176518AB6C9500E3DE76 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C0176418AB6C9500E3DE76 /* AppDelegate.m */; };
 		04C0176818AB6C9500E3DE76 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04C0176618AB6C9500E3DE76 /* Main_iPhone.storyboard */; };
 		04C0176B18AB6C9500E3DE76 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04C0176918AB6C9500E3DE76 /* Main_iPad.storyboard */; };
-		04C0176E18AB6C9500E3DE76 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C0176D18AB6C9500E3DE76 /* ViewController.m */; };
 		04C0177018AB6C9500E3DE76 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04C0176F18AB6C9500E3DE76 /* Images.xcassets */; };
 		04C0177718AB6C9500E3DE76 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C0177618AB6C9500E3DE76 /* XCTest.framework */; };
 		04C0177818AB6C9500E3DE76 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C0175418AB6C9500E3DE76 /* Foundation.framework */; };
 		04C0177918AB6C9500E3DE76 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C0175818AB6C9500E3DE76 /* UIKit.framework */; };
 		04C0178118AB6C9500E3DE76 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04C0177F18AB6C9500E3DE76 /* InfoPlist.strings */; };
 		04C0178318AB6C9500E3DE76 /* treeGraphTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C0178218AB6C9500E3DE76 /* treeGraphTests.m */; };
-		04C0179218AB74CF00E3DE76 /* ObjCClassWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C0179118AB74CF00E3DE76 /* ObjCClassWrapper.m */; };
-		04C0179818ACAFD300E3DE76 /* PSBaseLeafView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C0179718ACAFD300E3DE76 /* PSBaseLeafView.m */; };
-		189C553E18ACFE3000C81F2D /* PSBaseBranchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189C553D18ACFE3000C81F2D /* PSBaseBranchView.m */; };
-		189C554118ACFEDB00C81F2D /* PSBaseTreeGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189C554018ACFEDB00C81F2D /* PSBaseTreeGraphView.m */; };
+		04C4F14F18C0927600E35D34 /* PSBaseLeafView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C0179718ACAFD300E3DE76 /* PSBaseLeafView.m */; };
+		04C4F15118C0927600E35D34 /* PSBaseTreeGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189C554018ACFEDB00C81F2D /* PSBaseTreeGraphView.m */; };
+		04C4F15218C0927600E35D34 /* PSBaseSubtreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EF16318ADC7CB004B85DB /* PSBaseSubtreeView.m */; };
+		04C4F15318C0927600E35D34 /* ObjCClassWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C0179118AB74CF00E3DE76 /* ObjCClassWrapper.m */; };
+		04C4F15418C0927600E35D34 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C0176418AB6C9500E3DE76 /* AppDelegate.m */; };
+		04C4F15518C0927600E35D34 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C0176D18AB6C9500E3DE76 /* ViewController.m */; };
+		04C4F15618C0927600E35D34 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C0176018AB6C9500E3DE76 /* main.m */; };
+		04E6FAF218C5728700F6F5A4 /* PSBaseBranchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E6FAF118C5728700F6F5A4 /* PSBaseBranchView.m */; };
+		04E6FAF618C6C70B00F6F5A4 /* MyTreeGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E6FAF518C6C70B00F6F5A4 /* MyTreeGraphView.m */; };
+		04E6FAF918C6C91700F6F5A4 /* MyLeafView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E6FAF818C6C91700F6F5A4 /* MyLeafView.m */; };
+		04E6FAFC18C6FAE600F6F5A4 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E6FAFB18C6FAE600F6F5A4 /* ViewController.xib */; };
+		04E6FAFE18C70DBC00F6F5A4 /* TreeNodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E6FAFD18C70DBC00F6F5A4 /* TreeNodeView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,8 +73,14 @@
 		04C0179618ACAFD200E3DE76 /* PSBaseLeafView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PSBaseLeafView.h; path = View/PSTreeGraphView/PSBaseLeafView.h; sourceTree = "<group>"; };
 		04C0179718ACAFD300E3DE76 /* PSBaseLeafView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PSBaseLeafView.m; path = View/PSTreeGraphView/PSBaseLeafView.m; sourceTree = "<group>"; };
 		04C0179918ACD25400E3DE76 /* PSTreeGraphModelNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PSTreeGraphModelNode.h; path = View/PSTreeGraphView/PSTreeGraphModelNode.h; sourceTree = "<group>"; };
-		189C553C18ACFE3000C81F2D /* PSBaseBranchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PSBaseBranchView.h; path = View/PSTreeGraphView/PSBaseBranchView.h; sourceTree = "<group>"; };
-		189C553D18ACFE3000C81F2D /* PSBaseBranchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PSBaseBranchView.m; path = View/PSTreeGraphView/PSBaseBranchView.m; sourceTree = "<group>"; };
+		04E6FAF118C5728700F6F5A4 /* PSBaseBranchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PSBaseBranchView.m; path = View/PSTreeGraphView/PSBaseBranchView.m; sourceTree = "<group>"; };
+		04E6FAF318C5729800F6F5A4 /* PSBaseBranchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PSBaseBranchView.h; path = View/PSTreeGraphView/PSBaseBranchView.h; sourceTree = "<group>"; };
+		04E6FAF418C6C70B00F6F5A4 /* MyTreeGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyTreeGraphView.h; path = View/MyTreeGraphView.h; sourceTree = "<group>"; };
+		04E6FAF518C6C70B00F6F5A4 /* MyTreeGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyTreeGraphView.m; path = View/MyTreeGraphView.m; sourceTree = "<group>"; };
+		04E6FAF718C6C91700F6F5A4 /* MyLeafView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyLeafView.h; path = View/MyLeafView.h; sourceTree = "<group>"; };
+		04E6FAF818C6C91700F6F5A4 /* MyLeafView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyLeafView.m; path = View/MyLeafView.m; sourceTree = "<group>"; };
+		04E6FAFB18C6FAE600F6F5A4 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ViewController.xib; path = View/ViewController.xib; sourceTree = "<group>"; };
+		04E6FAFD18C70DBC00F6F5A4 /* TreeNodeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TreeNodeView.xib; sourceTree = "<group>"; };
 		189C553F18ACFEDB00C81F2D /* PSBaseTreeGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PSBaseTreeGraphView.h; path = View/PSTreeGraphView/PSBaseTreeGraphView.h; sourceTree = "<group>"; };
 		189C554018ACFEDB00C81F2D /* PSBaseTreeGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PSBaseTreeGraphView.m; path = View/PSTreeGraphView/PSBaseTreeGraphView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -135,12 +145,6 @@
 				04C0179418ACAF1600E3DE76 /* Controller */,
 				04C0179318ACAF0D00E3DE76 /* View */,
 				04C0178C18AB747700E3DE76 /* Model */,
-				04C0176318AB6C9500E3DE76 /* AppDelegate.h */,
-				04C0176418AB6C9500E3DE76 /* AppDelegate.m */,
-				04C0176618AB6C9500E3DE76 /* Main_iPhone.storyboard */,
-				04C0176918AB6C9500E3DE76 /* Main_iPad.storyboard */,
-				04C0176C18AB6C9500E3DE76 /* ViewController.h */,
-				04C0176D18AB6C9500E3DE76 /* ViewController.m */,
 				04C0176F18AB6C9500E3DE76 /* Images.xcassets */,
 				04C0175B18AB6C9500E3DE76 /* Supporting Files */,
 			);
@@ -150,6 +154,7 @@
 		04C0175B18AB6C9500E3DE76 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				04E6FAFA18C6D65B00F6F5A4 /* Resources */,
 				04C0175C18AB6C9500E3DE76 /* treeGraph-Info.plist */,
 				04C0175D18AB6C9500E3DE76 /* InfoPlist.strings */,
 				04C0176018AB6C9500E3DE76 /* main.m */,
@@ -188,7 +193,13 @@
 		04C0179318ACAF0D00E3DE76 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				04C0176618AB6C9500E3DE76 /* Main_iPhone.storyboard */,
+				04C0176918AB6C9500E3DE76 /* Main_iPad.storyboard */,
+				04E6FAF718C6C91700F6F5A4 /* MyLeafView.h */,
+				04E6FAF818C6C91700F6F5A4 /* MyLeafView.m */,
 				04C0179518ACAF3F00E3DE76 /* PSTreeGraphView */,
+				04E6FAF418C6C70B00F6F5A4 /* MyTreeGraphView.h */,
+				04E6FAF518C6C70B00F6F5A4 /* MyTreeGraphView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -196,6 +207,10 @@
 		04C0179418ACAF1600E3DE76 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				04C0176318AB6C9500E3DE76 /* AppDelegate.h */,
+				04C0176418AB6C9500E3DE76 /* AppDelegate.m */,
+				04C0176C18AB6C9500E3DE76 /* ViewController.h */,
+				04C0176D18AB6C9500E3DE76 /* ViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -203,11 +218,11 @@
 		04C0179518ACAF3F00E3DE76 /* PSTreeGraphView */ = {
 			isa = PBXGroup;
 			children = (
+				04E6FAF318C5729800F6F5A4 /* PSBaseBranchView.h */,
+				04E6FAF118C5728700F6F5A4 /* PSBaseBranchView.m */,
 				04C0179618ACAFD200E3DE76 /* PSBaseLeafView.h */,
 				04C0179718ACAFD300E3DE76 /* PSBaseLeafView.m */,
 				04C0179918ACD25400E3DE76 /* PSTreeGraphModelNode.h */,
-				189C553C18ACFE3000C81F2D /* PSBaseBranchView.h */,
-				189C553D18ACFE3000C81F2D /* PSBaseBranchView.m */,
 				189C553F18ACFEDB00C81F2D /* PSBaseTreeGraphView.h */,
 				189C554018ACFEDB00C81F2D /* PSBaseTreeGraphView.m */,
 				042EF16218ADC7CB004B85DB /* PSBaseSubtreeView.h */,
@@ -216,6 +231,15 @@
 				0428CD3918B1F0390082F0C2 /* PSTreeGraphDelegate.h */,
 			);
 			name = PSTreeGraphView;
+			sourceTree = "<group>";
+		};
+		04E6FAFA18C6D65B00F6F5A4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				04E6FAFB18C6FAE600F6F5A4 /* ViewController.xib */,
+				04E6FAFD18C70DBC00F6F5A4 /* TreeNodeView.xib */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,9 +318,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04E6FAFC18C6FAE600F6F5A4 /* ViewController.xib in Resources */,
 				04C0176B18AB6C9500E3DE76 /* Main_iPad.storyboard in Resources */,
 				04C0177018AB6C9500E3DE76 /* Images.xcassets in Resources */,
 				04C0176818AB6C9500E3DE76 /* Main_iPhone.storyboard in Resources */,
+				04E6FAFE18C70DBC00F6F5A4 /* TreeNodeView.xib in Resources */,
 				04C0175F18AB6C9500E3DE76 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -316,14 +342,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				189C553E18ACFE3000C81F2D /* PSBaseBranchView.m in Sources */,
-				042EF16418ADC7CB004B85DB /* PSBaseSubtreeView.m in Sources */,
-				04C0176E18AB6C9500E3DE76 /* ViewController.m in Sources */,
-				04C0176518AB6C9500E3DE76 /* AppDelegate.m in Sources */,
-				04C0179218AB74CF00E3DE76 /* ObjCClassWrapper.m in Sources */,
-				189C554118ACFEDB00C81F2D /* PSBaseTreeGraphView.m in Sources */,
-				04C0176118AB6C9500E3DE76 /* main.m in Sources */,
-				04C0179818ACAFD300E3DE76 /* PSBaseLeafView.m in Sources */,
+				04C4F14F18C0927600E35D34 /* PSBaseLeafView.m in Sources */,
+				04C4F15118C0927600E35D34 /* PSBaseTreeGraphView.m in Sources */,
+				04C4F15218C0927600E35D34 /* PSBaseSubtreeView.m in Sources */,
+				04C4F15318C0927600E35D34 /* ObjCClassWrapper.m in Sources */,
+				04E6FAF918C6C91700F6F5A4 /* MyLeafView.m in Sources */,
+				04E6FAF218C5728700F6F5A4 /* PSBaseBranchView.m in Sources */,
+				04C4F15418C0927600E35D34 /* AppDelegate.m in Sources */,
+				04C4F15518C0927600E35D34 /* ViewController.m in Sources */,
+				04E6FAF618C6C70B00F6F5A4 /* MyTreeGraphView.m in Sources */,
+				04C4F15618C0927600E35D34 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

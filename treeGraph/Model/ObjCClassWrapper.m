@@ -92,13 +92,34 @@ static NSInteger CompareClassNames(id classA, id classB, void* context)
 
 - (ObjCClassWrapper *) superclassWrapper
 {
-    return nil;
+    return [[self class] wrapperForClas:class_getSuperclass(wrappedClass)];
 }
 
 
 - (NSArray *) subclasses
 {
-    return nil;
+    if (subclassCache == nil) {
+        int i;
+        int numClasses = 0;
+        int newNumClasses = objc_getClassList(NULL, 0);
+        Class *classes = NULL;
+        while (numClasses < newNumClasses) {
+            numClasses = newNumClasses;
+            classes = (Class*)realloc(classes, sizeof(classes)* numClasses);
+            newNumClasses = objc_getClassList(classes, numClasses);
+        }
+        
+        subclassCache = [[NSMutableArray alloc] initWithCapacity:numClasses];
+        for (i = 0; i < numClasses; i++) {
+            if (class_getSuperclass(classes[i]) == wrappedClass) {
+                [subclassCache addObject:[[self class] wrapperForClas:classes[i]]];
+            }
+        }
+        free(classes);
+        [subclassCache sortUsingFunction:CompareClassNames context:NULL];
+        
+    }
+    return subclassCache;
 }
 
 

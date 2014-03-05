@@ -10,7 +10,6 @@
 #import "PSBaseTreeGraphView.h"
 #import "PSBaseSubtreeView.h"
 
-
 @interface PSBaseBranchView ()
 
 - (UIBezierPath *) directConnectionsPath;
@@ -38,6 +37,7 @@
 {
     CGRect bounds = [self bounds];
     CGPoint rootPoint = CGPointZero;
+
     
     PSTreeGraphOrientationStyle treeDirection = [[self enclosingTreeGraph] treeGraphOritentation];
     if ((treeDirection == PSTreeGraphOrientationStyleHorizontal) || (treeDirection == PSTreeGraphOrientationStyleHorizontalFlipped)) {

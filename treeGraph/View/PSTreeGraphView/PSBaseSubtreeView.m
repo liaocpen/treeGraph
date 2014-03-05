@@ -7,7 +7,7 @@
 //
 
 #import "PSBaseSubtreeView.h"
-#import "PSBaseBranchView.m"
+#import "PSBaseBranchView.h"
 #import "PSBaseTreeGraphView.h"
 
 #import <QuartzCore/QuartzCore.h>
