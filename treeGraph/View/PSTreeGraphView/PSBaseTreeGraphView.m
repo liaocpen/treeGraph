@@ -667,13 +667,24 @@
 - (id<PSTreeGraphModelNode>)modelNodeAtPoint:(CGPoint)p
 {
     PSBaseSubtreeView *rootSubTreeView = [self rootSubtreeView];
-    CGPoint subviewPoint = [self convertPoint:p fromView:rootSubTreeView];
+    CGPoint subviewPoint = [self convertPoint:p toView:rootSubTreeView];
     id <PSTreeGraphModelNode> hitModelNode = [[self rootSubtreeView] modelNodeAtPoint:subviewPoint];
     return hitModelNode;
 }
 
 
 #pragma mark - Input and Navigation
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    CGPoint viewPonit = [touch locationInView:self];
+    
+    id <PSTreeGraphModelNode> hitModelNode = [self modelNodeAtPoint:viewPonit];
+    [self setSelectedModelNodes:(hitModelNode ? [NSSet setWithObject:hitModelNode] : [NSSet set])];
+    [self becomeFirstResponder];
+    
+}
 
 
 @end

@@ -10,4 +10,8 @@
 
 @interface MyLeafView : PSBaseLeafView
 
+@property (nonatomic, weak) IBOutlet UIButton *toggleButton;
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UILabel *detailLabel;
+
 @end

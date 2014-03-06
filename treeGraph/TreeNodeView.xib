@@ -15,12 +15,15 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fUe-8r-L6c">
-                    <rect key="frame" x="192" y="9" width="29" height="31"/>
+                    <rect key="frame" x="193" y="8" width="29" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <state key="normal" title="Button">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="toggleExpansion:" destination="-1" eventType="touchUpInside" id="cM2-n7-eJ8"/>
+                    </connections>
                 </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="omu-fB-aaD" userLabel="title">
                     <rect key="frame" x="10" y="7" width="169" height="21"/>
@@ -38,6 +41,11 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+            <connections>
+                <outlet property="detailLabel" destination="e3z-oL-HGP" id="hPh-Ka-QfP"/>
+                <outlet property="titleLabel" destination="omu-fB-aaD" id="WjN-Zm-yyP"/>
+                <outlet property="toggleButton" destination="fUe-8r-L6c" id="GlG-Uj-qxo"/>
+            </connections>
         </view>
     </objects>
 </document>

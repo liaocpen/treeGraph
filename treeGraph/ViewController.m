@@ -35,7 +35,7 @@
     if (![rootClassName_ isEqualToString:newRootClassName]) {
         rootClassName_ = [newRootClassName copy];
         
-        treeGraphView_.connectingLineStyle = PSTreeGraphConnectingLineStyleDirect;
+        treeGraphView_.connectingLineStyle = 0;
         treeGraphView_.treeGraphOritentation = PSTreeGraphOrientationStyleHorizontal;
         
         [treeGraphView_ setModelRoot:[ObjCClassWrapper wrapperForNamed:rootClassName_]];
@@ -50,7 +50,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
     [self.treeGraphView setDelegate:self];
     [self.treeGraphView setNodeViewNibName:@"TreeNodeView"];
-    [self setRootClassName:@"UIControl"];
+    [self setRootClassName:@"UIButton"];
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
@@ -68,8 +68,9 @@
     MyLeafView *leafView = (MyLeafView *)nodeView;
     
     if ([[objectWrapper childModeNodes] count] == 0) {
-        
+        [leafView.toggleButton setHidden:YES];
     }
+    leafView.titleLabel.text = @"a";
     
 }
 

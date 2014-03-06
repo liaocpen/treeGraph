@@ -498,7 +498,7 @@ static CGFloat subtreeBoederWidth()
             if (subview == [self nodeView]) {
                 return [self modelNode];
             } else if ([subview isKindOfClass:[PSBaseSubtreeView class]]) {
-                [(PSBaseSubtreeView *)subview modelNodeAtPoint:subviewPoint];
+                return [(PSBaseSubtreeView *)subview modelNodeAtPoint:subviewPoint];
             } else {
                 // Ignore subview. It's probably a BranchView
             }
