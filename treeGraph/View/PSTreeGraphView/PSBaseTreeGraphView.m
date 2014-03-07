@@ -457,6 +457,7 @@
             }
         }
     }
+     [self addSubview:showDetailView_];
 }
 
 #pragma mark -Layout
@@ -696,7 +697,6 @@
 
 - (void)hideNodeDetailView
 {
-    [self addSubview:showDetailView_];
     __block BOOL done = YES;
     [UIView animateWithDuration:1.0 animations:^{
         showDetailView_.center = CGPointMake(showDetailView_.center.x + 500, showDetailView_.center.y);
