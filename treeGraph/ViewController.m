@@ -9,13 +9,13 @@
 #import "ViewController.h"
 #import "PSBaseTreeGraphView.h"
 #import "MyLeafView.h"
-
+#import "MyTreeGraphView.h"
 #import "ObjCClassWrapper.h"
 
 @interface ViewController ()
 {
 @private
-    PSBaseTreeGraphView *__weak treeGraphView_;
+    MyTreeGraphView *__weak treeGraphView_;
     NSString *rootClassName_;
 }
 
@@ -36,6 +36,7 @@
         rootClassName_ = [newRootClassName copy];
         
         treeGraphView_.connectingLineStyle = 0;
+        treeGraphView_.connectingLineColor = [UIColor redColor];
         treeGraphView_.treeGraphOritentation = PSTreeGraphOrientationStyleHorizontal;
         
         [treeGraphView_ setModelRoot:[ObjCClassWrapper wrapperForNamed:rootClassName_]];
@@ -70,8 +71,7 @@
     if ([[objectWrapper childModeNodes] count] == 0) {
         [leafView.toggleButton setHidden:YES];
     }
-    leafView.titleLabel.text = @"a";
-    
+    leafView.titleLabel.text = objectWrapper.name;
 }
 
 - (void)didReceiveMemoryWarning

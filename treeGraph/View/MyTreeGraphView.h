@@ -10,4 +10,10 @@
 
 @interface MyTreeGraphView : PSBaseTreeGraphView
 
+/**
+ *  The node Detail View
+ */
+@property (nonatomic, strong) UILabel *nodeName;
+
+
 @end

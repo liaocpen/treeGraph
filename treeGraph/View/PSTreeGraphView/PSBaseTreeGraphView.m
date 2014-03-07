@@ -13,6 +13,7 @@
 
 #import "PSTreeGraphDelegate.h"
 #import "PSTreeGraphModelNode.h"
+#import "ObjCClassWrapper.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -63,7 +64,7 @@
     UINib *cachedNodeViewNib_;
     
     //custom input view support
-    UIView *inputView_;
+    UIView *showDetailView_;
 }
 
 - (void) configureDefaults;
@@ -208,8 +209,9 @@
     selectedModelNodes_ = [[NSMutableSet alloc] init];
     modelNodeToSubtreeViewMapTable_ = [NSMutableDictionary dictionaryWithCapacity:10];
     
-    if (inputView_ == nil) {
-        inputView_ = [[UIView alloc] initWithFrame:CGRectZero];
+    if (showDetailView_ == nil) {
+        showDetailView_ = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width + 250, 0, 500, self.frame.size.height)];
+        [showDetailView_ setBackgroundColor:[UIColor whiteColor]];
     }
     
     
@@ -675,16 +677,54 @@
 
 #pragma mark - Input and Navigation
 
+@synthesize showDetailView = showDetailView_;
+
+- (void)showNodeDetailView
+{
+    __block BOOL done = YES;
+    [UIView animateWithDuration:1.0 animations:^{
+        showDetailView_.center = CGPointMake(showDetailView_.center.x - 500., showDetailView_.center.y);
+        
+    } completion:^(BOOL finished) {
+        done = NO;
+    }];
+    
+    while (done == YES) {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.00001]];
+    }
+}
+
+- (void)hideNodeDetailView
+{
+    [self addSubview:showDetailView_];
+    __block BOOL done = YES;
+    [UIView animateWithDuration:1.0 animations:^{
+        showDetailView_.center = CGPointMake(showDetailView_.center.x + 500, showDetailView_.center.y);
+    } completion:^(BOOL finished) {
+        done = NO;
+    }];
+    
+    while (done == YES) {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.001]];
+    }
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
     CGPoint viewPonit = [touch locationInView:self];
     
     id <PSTreeGraphModelNode> hitModelNode = [self modelNodeAtPoint:viewPonit];
+    if (hitModelNode != Nil) {
+        [self showNodeDetailView];
+    } else{
+        [self hideNodeDetailView];
+    }
     [self setSelectedModelNodes:(hitModelNode ? [NSSet setWithObject:hitModelNode] : [NSSet set])];
     [self becomeFirstResponder];
     
 }
+
 
 
 @end

@@ -225,7 +225,7 @@ typedef enum PSTreeGraphOrientationStyle : NSUInteger {
 
 #pragma mark - Input and Navigation
 
-
+@property (nonatomic, strong) UIView *showDetailView;
 
 
 
