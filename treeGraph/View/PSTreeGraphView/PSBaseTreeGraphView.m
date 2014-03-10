@@ -15,6 +15,9 @@
 #import "PSTreeGraphModelNode.h"
 #import "ObjCClassWrapper.h"
 
+#import "UIERealTimeBlurView.h"
+
+
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -65,6 +68,7 @@
     
     //custom input view support
     UIView *showDetailView_;
+    BOOL hideDetailView_;
 }
 
 - (void) configureDefaults;
@@ -210,8 +214,9 @@
     modelNodeToSubtreeViewMapTable_ = [NSMutableDictionary dictionaryWithCapacity:10];
     
     if (showDetailView_ == nil) {
-        showDetailView_ = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width + 250, 0, 500, self.frame.size.height)];
+        showDetailView_ = [[UIView alloc] initWithFrame:CGRectZero];
         [showDetailView_ setBackgroundColor:[UIColor whiteColor]];
+        hideDetailView_ = YES;
     }
     
     
@@ -454,11 +459,11 @@
             PSBaseSubtreeView *rootSubtreeView = [self newGraphForModelNode:root];
             if (rootSubtreeView) {
                 [self addSubview:rootSubtreeView];
+                [self addSubview:showDetailView_];
             }
         }
     }
-     [self addSubview:showDetailView_];
-}
+    }
 
 #pragma mark -Layout
 
@@ -487,6 +492,9 @@
                             self.frame.origin.y,
                             newframeSize.width,
                             newframeSize.height);
+    
+    
+    [showDetailView_ setFrame:CGRectMake(self.frame.size.width + 250, 0, 500, self.frame.size.height)];
 }
 
 - (void)updateRootSubtreeViewPositionForSize:(CGSize)rootSubtreeViewSize
@@ -683,7 +691,7 @@
 - (void)showNodeDetailView
 {
     __block BOOL done = YES;
-    [UIView animateWithDuration:1.0 animations:^{
+    [UIView animateWithDuration:0.5 animations:^{
         showDetailView_.center = CGPointMake(showDetailView_.center.x - 500., showDetailView_.center.y);
         
     } completion:^(BOOL finished) {
@@ -691,7 +699,7 @@
     }];
     
     while (done == YES) {
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.00001]];
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
 }
 
@@ -715,9 +723,13 @@
     CGPoint viewPonit = [touch locationInView:self];
     
     id <PSTreeGraphModelNode> hitModelNode = [self modelNodeAtPoint:viewPonit];
-    if (hitModelNode != Nil) {
-        [self showNodeDetailView];
-    } else{
+    if (hitModelNode != Nil && ([touch.view isKindOfClass:[PSBaseLeafView class]])) {
+        if (hideDetailView_) {
+            hideDetailView_ = NO;
+            [self showNodeDetailView];
+        }
+    } else if (!hideDetailView_){
+        hideDetailView_ = YES;
         [self hideNodeDetailView];
     }
     [self setSelectedModelNodes:(hitModelNode ? [NSSet setWithObject:hitModelNode] : [NSSet set])];

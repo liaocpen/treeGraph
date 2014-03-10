@@ -30,7 +30,7 @@
 
 - (void)configDetailView
 {
-    _nodeName = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 100)];
+    _nodeName = [[UILabel alloc] initWithFrame:CGRectMake(10, 300, 100, 100)];
     [self.showDetailView addSubview:_nodeName];
     
 }

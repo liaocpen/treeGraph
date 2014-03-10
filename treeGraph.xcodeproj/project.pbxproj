@@ -29,6 +29,7 @@
 		04E6FAF918C6C91700F6F5A4 /* MyLeafView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E6FAF818C6C91700F6F5A4 /* MyLeafView.m */; };
 		04E6FAFC18C6FAE600F6F5A4 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E6FAFB18C6FAE600F6F5A4 /* ViewController.xib */; };
 		04E6FAFE18C70DBC00F6F5A4 /* TreeNodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E6FAFD18C70DBC00F6F5A4 /* TreeNodeView.xib */; };
+		04FF283B18CDA4AA00391B0B /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04FF283A18CDA4AA00391B0B /* Accelerate.framework */; };
 		185B134D18C7694B004D1FAE /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185B134C18C7694B004D1FAE /* MainWindow.xib */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,7 @@
 		04E6FAF818C6C91700F6F5A4 /* MyLeafView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyLeafView.m; path = View/MyLeafView.m; sourceTree = "<group>"; };
 		04E6FAFB18C6FAE600F6F5A4 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ViewController.xib; path = View/ViewController.xib; sourceTree = "<group>"; };
 		04E6FAFD18C70DBC00F6F5A4 /* TreeNodeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TreeNodeView.xib; sourceTree = "<group>"; };
+		04FF283A18CDA4AA00391B0B /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		185B134C18C7694B004D1FAE /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		189C553F18ACFEDB00C81F2D /* PSBaseTreeGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PSBaseTreeGraphView.h; path = View/PSTreeGraphView/PSBaseTreeGraphView.h; sourceTree = "<group>"; };
 		189C554018ACFEDB00C81F2D /* PSBaseTreeGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PSBaseTreeGraphView.m; path = View/PSTreeGraphView/PSBaseTreeGraphView.m; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04FF283B18CDA4AA00391B0B /* Accelerate.framework in Frameworks */,
 				04C0175718AB6C9500E3DE76 /* CoreGraphics.framework in Frameworks */,
 				04C0175918AB6C9500E3DE76 /* UIKit.framework in Frameworks */,
 				04C0175518AB6C9500E3DE76 /* Foundation.framework in Frameworks */,
@@ -129,6 +132,7 @@
 		04C0175318AB6C9500E3DE76 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04FF283A18CDA4AA00391B0B /* Accelerate.framework */,
 				04C0175418AB6C9500E3DE76 /* Foundation.framework */,
 				04C0175618AB6C9500E3DE76 /* CoreGraphics.framework */,
 				04C0175818AB6C9500E3DE76 /* UIKit.framework */,
