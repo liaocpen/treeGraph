@@ -19,6 +19,11 @@
 @implementation MyTreeGraphView
 
 
+- (void)test1:(NSNotification*) aNotification
+{
+    NSLog(@"aaaa");
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
@@ -33,6 +38,7 @@
     _nodeName = [[UILabel alloc] initWithFrame:CGRectMake(10, 300, 100, 100)];
     [self.showDetailView addSubview:_nodeName];
     
+    
 }
 
 
@@ -40,6 +46,11 @@
 {
     ObjCClassWrapper *wrapper = (ObjCClassWrapper *)[self singleSelectedModelNode];
     _nodeName.text = wrapper.name;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Change_rootModelName" object:@"UIButton"];
+    
 }
+
+
 
 @end

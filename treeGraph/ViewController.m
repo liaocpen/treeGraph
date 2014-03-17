@@ -45,14 +45,23 @@
 
 #pragma mark - View Creation and Initializer
 
+- (void)changeRootName:(NSNotification *)aNotification
+{
+    [self setRootClassName:(NSString *)aNotification.object];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeRootName:) name:@"Change_rootModelName" object:nil];
     [self.treeGraphView setDelegate:self];
     [self.treeGraphView setNodeViewNibName:@"TreeNodeView"];
-    [self setRootClassName:@"UIButton"];
+    [self setRootClassName:@"UINavigationButton"];
+    
 }
+
+
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
@@ -72,6 +81,8 @@
         [leafView.toggleButton setHidden:YES];
     }
     leafView.titleLabel.text = objectWrapper.name;
+   
+                                
 }
 
 - (void)didReceiveMemoryWarning
