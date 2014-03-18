@@ -16,16 +16,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "treeGraph/View/PSTreeGraphView/PSBaseTreeGraphView.m"
-            timestampString = "416718904.779724"
+            filePath = "treeGraph/Model/ObjCClassWrapper.m"
+            timestampString = "416828303.070771"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "724"
-            endingLineNumber = "724"
-            landmarkName = "-touchesBegan:withEvent:"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "-initWithWrappedClass:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

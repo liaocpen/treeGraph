@@ -45,16 +45,27 @@ static NSInteger CompareClassNames(id classA, id classB, void* context)
 {
     self = [super init];
     if (self) {
-        if (aClass != nil) {
-            wrappedClass = aClass;
-            if (classToWrapperMapTable == nil) {
-                classToWrapperMapTable = [NSMutableDictionary dictionaryWithCapacity:16];
-            }
-            classToWrapperMapTable[(id<NSCopying>)wrappedClass] = self;
-        } else {
-            return nil;
-        }
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
+        NSString *path = [paths objectAtIndex:0];
+        path = [path stringByAppendingPathComponent:@"a.json"];
+        NSData *data = [NSData dataWithContentsOfFile:path];
+        NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        NSLog(@"%@",jsonObject);
+        
     }
+    
+    
+//    if (self) {
+//        if (aClass != nil) {
+//            wrappedClass = aClass;
+//            if (classToWrapperMapTable == nil) {
+//                classToWrapperMapTable = [NSMutableDictionary dictionaryWithCapacity:16];
+//            }
+//            classToWrapperMapTable[(id<NSCopying>)wrappedClass] = self;
+//        } else {
+//            return nil;
+//        }
+//    }
     return  self;
 }
 

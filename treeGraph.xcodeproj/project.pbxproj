@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		048A0DA318D8495900F69353 /* a.json in Resources */ = {isa = PBXBuildFile; fileRef = 048A0DA218D8495900F69353 /* a.json */; };
 		04C0175518AB6C9500E3DE76 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C0175418AB6C9500E3DE76 /* Foundation.framework */; };
 		04C0175718AB6C9500E3DE76 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C0175618AB6C9500E3DE76 /* CoreGraphics.framework */; };
 		04C0175918AB6C9500E3DE76 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C0175818AB6C9500E3DE76 /* UIKit.framework */; };
@@ -48,6 +49,7 @@
 		042EF16218ADC7CB004B85DB /* PSBaseSubtreeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PSBaseSubtreeView.h; path = View/PSTreeGraphView/PSBaseSubtreeView.h; sourceTree = "<group>"; };
 		042EF16318ADC7CB004B85DB /* PSBaseSubtreeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PSBaseSubtreeView.m; path = View/PSTreeGraphView/PSBaseSubtreeView.m; sourceTree = "<group>"; };
 		042EF16718AE2187004B85DB /* PSBaseTreeGraphView_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PSBaseTreeGraphView_internal.h; path = View/PSTreeGraphView/PSBaseTreeGraphView_internal.h; sourceTree = "<group>"; };
+		048A0DA218D8495900F69353 /* a.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = a.json; sourceTree = "<group>"; };
 		04C0175118AB6C9500E3DE76 /* treeGraph.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = treeGraph.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04C0175418AB6C9500E3DE76 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		04C0175618AB6C9500E3DE76 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -236,6 +238,7 @@
 		04E6FAFA18C6D65B00F6F5A4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				048A0DA218D8495900F69353 /* a.json */,
 				04E6FAFB18C6FAE600F6F5A4 /* ViewController.xib */,
 				04E6FAFD18C70DBC00F6F5A4 /* TreeNodeView.xib */,
 				185B134C18C7694B004D1FAE /* MainWindow.xib */,
@@ -320,6 +323,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04E6FAFC18C6FAE600F6F5A4 /* ViewController.xib in Resources */,
+				048A0DA318D8495900F69353 /* a.json in Resources */,
 				185B134D18C7694B004D1FAE /* MainWindow.xib in Resources */,
 				04C0177018AB6C9500E3DE76 /* Images.xcassets in Resources */,
 				04E6FAFE18C70DBC00F6F5A4 /* TreeNodeView.xib in Resources */,
