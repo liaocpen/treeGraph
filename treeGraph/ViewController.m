@@ -11,6 +11,7 @@
 #import "MyLeafView.h"
 #import "MyTreeGraphView.h"
 #import "ObjCClassWrapper.h"
+#import "ObjcJsonWrapper.h"
 
 @interface ViewController ()
 {
@@ -39,7 +40,15 @@
         treeGraphView_.connectingLineColor = [UIColor redColor];
         treeGraphView_.treeGraphOritentation = PSTreeGraphOrientationStyleHorizontal;
         
-        [treeGraphView_ setModelRoot:[ObjCClassWrapper wrapperForNamed:rootClassName_]];
+//        [treeGraphView_ setModelRoot:[ObjCClassWrapper wrapperForNamed:rootClassName_]];
+        
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
+        NSString *path = [paths objectAtIndex:0];
+        path = [path stringByAppendingPathComponent:@"a.json"];
+        NSData *data = [NSData dataWithContentsOfFile:path];
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        [treeGraphView_ setModelRoot:[ObjcJsonWrapper  wrapperForJson:jsonObject]];
     }
 }
 

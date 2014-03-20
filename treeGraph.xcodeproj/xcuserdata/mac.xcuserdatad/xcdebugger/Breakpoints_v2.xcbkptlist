@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "treeGraph/Model/ObjCClassWrapper.m"
-            timestampString = "416828303.070771"
+            filePath = "treeGraph/View/PSTreeGraphView/PSBaseTreeGraphView.m"
+            timestampString = "416998803.309312"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "-initWithWrappedClass:"
+            startingLineNumber = "765"
+            endingLineNumber = "765"
+            landmarkName = "-modelNode:isDescendantOf:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

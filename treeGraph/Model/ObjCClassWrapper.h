@@ -31,6 +31,8 @@
  */
 + (ObjCClassWrapper *) wrapperForNamed:(NSString *) aClassName;
 
++ (ObjCClassWrapper *) wrapperforJson: (NSString *)jsonName;
+
 #pragma mark - Property Accessors
 
 /**
