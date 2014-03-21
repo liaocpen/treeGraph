@@ -667,11 +667,17 @@
             [self setSelectedModelNodes:[NSSet setWithObject:modelRoot_]];
             [self scrollSelectedModelNodesToVisbleAnimated:NO];
         }
-        
-    }
+     } else{
+         [self buildGraph];
+         [self setNeedsDisplay];
+         [[self rootSubtreeView] resursiveSetSubtreeBordersNeedDisplay];
+         [self layoutGraphIfNeeded];
+     }
 }
 
-#pragma mark - Node Hit Testing 
+
+
+#pragma mark - Node Hit Testing
 
 - (id<PSTreeGraphModelNode>)modelNodeAtPoint:(CGPoint)p
 {
@@ -732,7 +738,6 @@
     }
     [self setSelectedModelNodes:(hitModelNode ? [NSSet setWithObject:hitModelNode] : [NSSet set])];
     [self becomeFirstResponder];
-    
 }
 
 

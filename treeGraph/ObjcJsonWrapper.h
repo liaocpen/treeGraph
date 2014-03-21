@@ -15,12 +15,13 @@
 
 + (ObjcJsonWrapper *) wrapperForJson: (NSDictionary *)jsonData;
 
+- (void)addChildWrapper:(NSDictionary *)newData;
 
 #pragma mark - Property Accessors
 
 @property (weak, nonatomic, readonly) NSString *name;
 
-@property (strong, nonatomic) NSDictionary *jsonData;
+@property (strong, nonatomic) NSMutableDictionary *jsonData;
 
 @property (weak, nonatomic, readonly) ObjcJsonWrapper *superWrapper;
 

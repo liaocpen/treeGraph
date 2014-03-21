@@ -90,8 +90,6 @@
         [leafView.toggleButton setHidden:YES];
     }
     leafView.titleLabel.text = objectWrapper.name;
-   
-                                
 }
 
 - (void)didReceiveMemoryWarning

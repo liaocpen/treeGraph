@@ -57,10 +57,23 @@ static NSMutableDictionary *jsonToWrapperMapTable = nil;
     ObjcJsonWrapper *wrapper = jsonToWrapperMapTable[jsonID];
     if (wrapper == nil) {
         wrapper = [[self alloc] initWithWrapperID:jsonID pid:pid];
-        wrapper.jsonData = [NSDictionary dictionaryWithDictionary:ajsonData];
+        wrapper.jsonData = [NSMutableDictionary dictionaryWithDictionary:ajsonData];
     }
     return wrapper;
 }
+
+#pragma mark - Add Child Data
+
+- (void)addChildWrapper:(NSDictionary *)newData
+{
+    
+    NSArray *childrenArray = [self.jsonData objectForKey:@"children"];
+    NSMutableArray *newChild = [[NSMutableArray alloc] init];
+    [newChild addObject:newData];
+    [newChild addObjectsFromArray:childrenArray];
+    [self.jsonData setValue:newChild forKey:@"children"];
+}
+
 
 #pragma mark - Property Accessors
 
@@ -83,9 +96,8 @@ static NSMutableDictionary *jsonToWrapperMapTable = nil;
     if (subWrapperCache == nil) {
         subWrapperCache = [[NSMutableArray alloc] init];
         NSDictionary *subData = [self.jsonData objectForKey:@"children"];
-        for (NSDictionary *a in subData) {
-            [subWrapperCache addObject:[[self class] wrapperForJson:a]];
-            NSLog(@"%@", ((ObjcJsonWrapper *)jsonToWrapperMapTable[wrapperedID]).jsonData);
+        for (NSDictionary *temp in subData) {
+            [subWrapperCache addObject:[[self class] wrapperForJson:temp]];
         }
     }
     return subWrapperCache;

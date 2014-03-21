@@ -7,11 +7,12 @@
 //
 
 #import "MyTreeGraphView.h"
-#import "ObjCClassWrapper.h"
+#import "ObjcJsonWrapper.h"
+#import "PSBaseSubtreeView.h"
 
 @interface MyTreeGraphView ()
 {
-    
+
 }
 
 @end
@@ -38,17 +39,28 @@
     _nodeName = [[UILabel alloc] initWithFrame:CGRectMake(10, 300, 100, 100)];
     [self.showDetailView addSubview:_nodeName];
     
-    
+    UIButton * _addbtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_addbtn setFrame:CGRectMake(10, 150, 70, 40)];
+    [_addbtn setTitle:@"添加孩子" forState:UIControlStateNormal];
+    [_addbtn addTarget:self action:@selector(addChild) forControlEvents:UIControlEventTouchDown];
+    [self.showDetailView addSubview:_addbtn];
+}
+
+#pragma mark - Custom Method
+
+- (void)addChild
+{
+    ObjcJsonWrapper *wrapper = (ObjcJsonWrapper*)[self singleSelectedModelNode];
+    NSDictionary *a = @{@"name": @"avc"};
+    [wrapper addChildWrapper:a];
+    [self setModelRoot:[self modelRoot]];
 }
 
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    ObjCClassWrapper *wrapper = (ObjCClassWrapper *)[self singleSelectedModelNode];
+    ObjcJsonWrapper *wrapper = (ObjcJsonWrapper *)[self singleSelectedModelNode];
     _nodeName.text = wrapper.name;
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"Change_rootModelName" object:@"UIButton"];
-    
 }
 
 
