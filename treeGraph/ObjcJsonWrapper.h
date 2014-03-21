@@ -17,6 +17,8 @@
 
 - (void)addChildWrapper:(NSDictionary *)newData;
 
+- (void)clearChildCache;
+
 #pragma mark - Property Accessors
 
 @property (weak, nonatomic, readonly) NSString *name;

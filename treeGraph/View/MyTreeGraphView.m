@@ -53,6 +53,7 @@
     ObjcJsonWrapper *wrapper = (ObjcJsonWrapper*)[self singleSelectedModelNode];
     NSDictionary *a = @{@"name": @"avc"};
     [wrapper addChildWrapper:a];
+    [wrapper clearChildCache];
     [self setModelRoot:[self modelRoot]];
 }
 

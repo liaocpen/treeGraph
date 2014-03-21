@@ -74,6 +74,10 @@ static NSMutableDictionary *jsonToWrapperMapTable = nil;
     [self.jsonData setValue:newChild forKey:@"children"];
 }
 
+- (void)clearChildCache
+{
+    subWrapperCache = nil;
+}
 
 #pragma mark - Property Accessors
 
