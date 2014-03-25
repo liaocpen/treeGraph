@@ -12,24 +12,19 @@
 
 @interface MyTreeGraphView ()
 {
-
+    NSInteger tmp;
 }
 
 @end
 
 @implementation MyTreeGraphView
 
-
-- (void)test1:(NSNotification*) aNotification
-{
-    NSLog(@"aaaa");
-}
-
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self configDetailView];
+        tmp = 1;
     }
     return self;
 }
@@ -51,7 +46,7 @@
 - (void)addChild
 {
     ObjcJsonWrapper *wrapper = (ObjcJsonWrapper*)[self singleSelectedModelNode];
-    NSDictionary *a = @{@"name": @"avc"};
+    NSDictionary *a = @{@"name": @"avc", @"id": [NSString stringWithFormat:@"%d", ++tmp] , @"pid": [wrapper.jsonData objectForKey:@"id"]};
     [wrapper addChildWrapper:a];
     [wrapper clearChildCache];
     [self setModelRoot:[self modelRoot]];

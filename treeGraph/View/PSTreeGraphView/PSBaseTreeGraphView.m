@@ -457,8 +457,15 @@
             PSBaseSubtreeView *rootSubtreeView = [self newGraphForModelNode:root];
             if (rootSubtreeView) {
                 [self addSubview:rootSubtreeView];
-                [self addSubview:showDetailView_];
+                if ([showDetailView_ superview] != self) {
+                    [self addSubview:showDetailView_];
+                } else {
+                    [showDetailView_ removeFromSuperview];
+                    hideDetailView_ = YES;
+                    [self addSubview:showDetailView_];
+                }
             }
+           
         }
     }
     }
@@ -668,6 +675,12 @@
             [self scrollSelectedModelNodesToVisbleAnimated:NO];
         }
      } else{
+         PSBaseSubtreeView *rootSubtreeView = [self rootSubtreeView];
+         [rootSubtreeView removeFromSuperview];
+         [modelNodeToSubtreeViewMapTable_ removeAllObjects];
+         [self setSelectedModelNodes:[NSSet set]];
+         modelRoot_ = newModelRoot;
+
          [self buildGraph];
          [self setNeedsDisplay];
          [[self rootSubtreeView] resursiveSetSubtreeBordersNeedDisplay];
@@ -696,7 +709,7 @@
 {
     __block BOOL done = YES;
     [UIView animateWithDuration:0.5 animations:^{
-        showDetailView_.center = CGPointMake(showDetailView_.center.x - 500., showDetailView_.center.y);
+        showDetailView_.center = CGPointMake(showDetailView_.center.x - 500, showDetailView_.center.y);
         
     } completion:^(BOOL finished) {
         done = NO;
@@ -723,6 +736,8 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+
+    
     UITouch *touch = [touches anyObject];
     CGPoint viewPonit = [touch locationInView:self];
     
